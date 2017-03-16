@@ -19,10 +19,9 @@
 37	4    14
 38	1     15
 39	2   16*/
-//#include "DHT.h"
+
 #include <Wire.h>
 #include <DS1307RTC.h>
-//#include "TSL2561.h"
 #include <Time.h>
 #include <DateTime.h>
 #include <DateTimeStrings.h>
