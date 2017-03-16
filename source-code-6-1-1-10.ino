@@ -1,5 +1,5 @@
-//fodder solar controller, by time only
-//RTC, corrected starts with serial number 70,updated so that relay 16 goes off during cycle
+//fodder by time 
+//RTC,  relay 16 goes off during cycle
 /*switch mappings
 22 ground
 23 ground
@@ -33,9 +33,7 @@
 
 
 #include <EEPROMex.h>
-// Adco for grove sensor, connect yellow wire(NC) to pin 13, red to 5v, black to grnd
-//#define DHTPIN 13
-//#define DHTTYPE DHT22 
+
 
 int wPin[15];
 
@@ -60,8 +58,7 @@ int wPin[15];
 
 #define CONFIG_VERSION "ls1"
 #define memoryBase 32
-//DHT dht(DHTPIN, DHTTYPE);
-//TSL2561 tsl(TSL2561_ADDR_FLOAT);
+
 long previousMillis = 0;
 long currentMillis;
 long logpreviousMillis;
@@ -80,12 +77,6 @@ int daychangeflag;
 int secondchangeflag;
  int hourvar;
   int minutevar;
-
-
-
-
-
-
 
 float tempcalc;
 float temp_f;
@@ -138,7 +129,7 @@ byte c_select[8] = {
   B00000,
 };
 
-// Example settings structure
+// settings structure
 struct StoreStruct {
     char version[4];   // This is for mere detection if they are your settings
     int a, b;          // The variables of your settings
@@ -202,27 +193,11 @@ void setup()
    {
      setTime(0,0,0,1,1,13);
    }
-   //}
-    
-   // Serial.begin(38400); // Open serial connection to report values to host
-   // Serial.println(F("Starting up"));
-   
-   //setTime(8,8,0,1,1,13); // set time to Saturday 8:29:00am Jan 1 2011
-  //dht.begin();  
-   //if (tsl.begin()) {
-    //Serial.println(F("Found sensor"));
-  //} else {
-   // Serial.println(F("No sensor?"));
-  //  lcd.write("Error - no light sensor");
- //   stopSketch();
- // }
- // tsl.setGain(TSL2561_GAIN_0X);
- // tsl.setTiming(TSL2561_INTEGRATIONTIME_13MS);
+
   irrigating = 0;
   EEPROM.setMemPool(memoryBase, EEPROMSizeMega); //Set memorypool base to 32, assume Arduino Uno board
   configAdress  = EEPROM.getAddress(sizeof(StoreStruct)); // Size of config object 
   
-  //set up 
 
    //set up 
  
@@ -933,20 +908,7 @@ void loop()
         
         
       }
-      //Serial.println(F("read sensors"));
-     // x = readsensors();
-      
-     
-       // if(accumlight >= storage.l) 
-     //   {
-      //  
-       
-    //      if (irrigating == 0)
-    //      {
-        
-    //       x = irrigate();
-    //      }
-    //     }
+   
         //check for irrgation times.
     if(menulevel<2)
     {
@@ -984,57 +946,7 @@ void loop()
  
 }
 int readsensors(){
-  // read light values
-  // read light values
-  //Serial.println(F("light calc"));
-  //uint32_t lum = tsl.getFullLuminosity();
-  //uint16_t ir, full;
-  //ir = lum >> 16;
-  //full = lum & 0xFFFF;
-  ////Serial.print(F("IR: ")); //Serial.print(ir);   //Serial.print(F("\t\t"));
-  ////Serial.print(F("Full: ")); //Serial.print(full);   //Serial.print(F("\t"));
-  ////Serial.print(F("Visible: ")); //Serial.print(full - ir);   //Serial.print(F("\t"));
-  
-  ////Serial.print(F("Lux: "));//Serial.println(tsl.calculateLux(full, ir));
-  
-  //lightcalc = tsl.calculateLux(full, ir);
-  //Serial.println(lightcalc);
-  ////Serial.print(F("Lux: "));//Serial.println(lightcalc);
-  
-  //float lightcalc2;
-  //lightcalc2 = lightcalc*.0185/86400*.1;
-  //float ltemp;
-  //float ltemp2;
-  //ltemp= accumlight;
-  //ltemp2 = accumlightdaily;
-  //accumlight = ltemp + lightcalc2;
-  //if (lightcalc > 10)
-  //{
-  //  if(daychangeflag==0)
-  //  {
-  //    if(dayvar < 8)
-  //    {
-  //      dayvar = dayvar +1;
-  //      daychangeflag = 1;
-  //    }
-  //    else
-  //    {
-  //      dayvar = 1;
-  //      daychangeflag = 1;
-  //  }
-  //} 
-        
-    //accumlightdaily = ltemp2 + lightcalc2;
-  //}
-  //else
-  //{
-  //  accumlightdaily = 0;
-  //  daychangeflag = 0;
-  //}
-  
- // //Serial.print(F("Accum Moles: ")); //Serial.println(accumlight);
-  //return 1;
-
+ 
 }
 
 int checktime()
@@ -1118,7 +1030,7 @@ int irrigate(){
   {
       lcd.write("Irrigating");
    }
-   //todo make this a loop
+   
    //relay 16 on
   pinMode(39, OUTPUT);
   digitalWrite(39, LOW);
